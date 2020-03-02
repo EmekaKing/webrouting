@@ -187,9 +187,7 @@ To create the database, we connected to the PostgreSQL database server via the p
     This was done to validate the shortest path route to ensure it took cognisance of the barrier as applied to the ng_2po_4pgr table. The 
 * Other queries were also carried out to explore the capabilities of the pgRouting database as extended.
 
-[Back to the top](#route-automation-for-flood-disaster-emergency-response)
-
-[Go Back](../README.md)
+[Back to the top](#route-automation-for-flood-disaster-emergency-response) | [Go Back](../README.md)
 ______
 -----
 ### 3.0	Server-Side Script with Python
