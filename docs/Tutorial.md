@@ -188,6 +188,7 @@ To create the database, we connected to the PostgreSQL database server via the p
 * Other queries were also carried out to explore the capabilities of the pgRouting database as extended.
 
 [Back to the top](#route-automation-for-flood-disaster-emergency-response)
+
 [Go Back](../README.md)
 ______
 -----
@@ -203,13 +204,7 @@ We used Python Script to make the routing query and send the result back to the 
 
 We used the python template and then place this ﬁle in a directory C:\xampp\cgi-bin, which is accessible by cgi-bin technology. A CGI-bin is an in-house folder for communicating with a web browser to provide a network or website feature. In the context of web development, Common Gateway Interface (CGI) provides an interface for the application of web server executables. In many instances, it means that you take an HTTP client and pass it on to an app to return a dynamically created HTML page to a browser.
 
-While almost any program that runs on a web server (in our case node js) can be used as a CGI script. CGI is a method for the use of Web design scripts. The CGI-bin in the project is referenced in the URL and serves as a REST endpoint and Web Service that holds the python web service/API built [api.py](../api.py). The operations and parameters are passed through the URL (unclean URL) to the server. Then, the server performs the operations (processing) and sends the results back to the client. The cgi-bin defines a way for the web server to interact with external content-generating programs. In our case, it defines the abstract parameters, known as meta-variables, which describe a client's request. With the  [api.py](../api.py), it specifies a platform-independent interface
-   between the script and the HTTP server.
-
-   The server is responsible for managing connection, data transfer,
-   transport and network issues related to the client request, whereas
-   the CGI script handles the application issues, such as data access
-   and document processing.
+While almost any program that runs on a web server (in our case node js) can be used as a CGI script. CGI is a method for the use of Web design scripts. The CGI-bin in the project is referenced in the URL and serves as a REST endpoint and Web Service that holds the python web service/API built [api.py](../api.py). The operations and parameters are passed through the URL (unclean URL) to the server. Then, the server performs the operations (processing) and sends the results back to the client. The cgi-bin defines a way for the web server to interact with external content-generating programs. In our case, it defines the abstract parameters, known as meta-variables, which describe a client's request. With the  [api.py](../api.py), it specifies a platform-independent interface between the script and the HTTP server. Hence, CGI script handles the application issues, such as data access and document processing.
 
 
 * First, a configuration [db.conf](../db.conf) file was created to store the testpro database authentication access value created in the PostgreSQL database management system, as shown below.
@@ -257,4 +252,5 @@ The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer),
 In the [index.js](../index.js), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
 
 [Back to the top](#route-automation-for-flood-disaster-emergency-response)
+
 [Go Back](../README.md)
