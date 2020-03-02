@@ -189,12 +189,12 @@ ______
 ### 3.0	Server-Side Script with Python
 We used Python Script to make the routing query and send the result back to the web client. The following steps were utilized necessary.
 
-•	Retrieving the start and endpoint coordinates.
-•	Finding the closest edge to start-end point.
-•	Taking the start or end vertex of this edge (for Dijkstra) of the route and end, respectively.
-•	Making the Shortest Path database query.
-•	Transformation of the query result to GeoJSON and creation of the request URL capabilities support using Common Gateway Interface (cgi-bin) technology via the web server software.
-•	Serving the request back to the web client.
+* Retrieving the start and endpoint coordinates.
+* Finding the closest edge to start-end point.
+* Taking the start or end vertex of this edge (for Dijkstra) of the route and end, respectively.
+* Making the Shortest Path database query.
+* Transformation of the query result to GeoJSON and creation of the request URL capabilities support using Common Gateway Interface (cgi-bin) technology via the web server software.
+* Serving the request back to the web client.
 
 We used the python template and then place this ﬁle in a directory C:\xampp\cgi-bin, which is accessible by cgi-bin technology. A CGI-bin is an in-house folder for communicating with a web browser to provide a network or website feature. In the context of web development, Common Gateway Interface (CGI) provides an interface for the application of web server executables. In many instances, it means that you take an HTTP client and pass it on to an app to return a dynamically created HTML page to a browser. While almost any program that runs on a web server (in our case node js) can be used as a CGI script. CGI is a method for the use of Web design scripts. The CGI-bin in the project is referenced in the URL as a script and is sent from node js to the web browser. 
 
@@ -228,18 +228,13 @@ b)	We then added the main HTML content to the [index.html](index.html). In the h
 c)	Adding the Flood risk Barrier dataset: The [flood barrier](data/flood-barriers.js) is also displayed on the web client as a layer which is added on top of the map container via `Layer:[] attribute`. This was achieved by using the OpenLayer.style as well as Openlayer.VectorLayer and the OpenLayer.Map to ensure the layers appears as the map load and is improved by the various functionality attached to the modal window, see [index.js](index.js).
 
 d)	Select the start and ﬁnal destination: We want to allow the users to draw and move the start and ﬁnal destination points. This is more or less the behavior of google maps and others: the user selects the points via a search box (address search) or by clicking the map. The system queries the server and displays the route on the map. The user can later move the start or ﬁnal point, and the route is updated.
+
 To do this, we used a tool to draw points (we will use the OpenLayers.Geometry control) and a method to move points (OpenLayers.onclick event). The OpenLayers.Layer. The vector layer serves as the place to draw and manipulate these two actions acting on the ends (source-startPoint and the target-endPoint). A second vector layer was used to illustrate the route returned by the web service. The layers were also symbolized using the OpenLayers.style. Other styles (for the html comntainer and event/actions) were added using the [normalize.css](normalize.css) and [styles.css](styles.css)
+
 In the initialize function (that’s the class constructor) we set that this control can only draw points `map.on('singleclick', (e) => {switch (clicks % 2)`. The special behavior is implemented in the Geometry function: because we only need the start and ﬁnal points the control deactivates itself when two  points are drawn by counting how many features  has the vector layer.
 The two point are added as layers to the OpenLayers.Map object with `addLayer ()` method once the user cicks on the map.
 
 e)	Routing method selection: The basic workﬂow to get a route from the webserver is: transform our points coordinates from EPSG:3857 to EPSG: 4326; call the web service with the correct arguments (method name and two points coordinates); parse the web service response transform GeoJSON to OpenLayers.Feature.Vector; convert all the coordinates from EPSG:4326 to EPSG:3857, and add the result to a vector layer. 
+
 The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py](api.py) returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
 In the [index.js](index.js), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
-
-
-
-
-
-
-
-
