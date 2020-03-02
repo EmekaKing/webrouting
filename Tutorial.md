@@ -206,70 +206,35 @@ We used the python template and then place this ﬁle in a directory C:\xampp\cg
     host = localhost
     port = 5432
 
-* Next, we created the [util.py]() file that helps create the database link (inherit) and communicates with the database. 
+* Next, we created the [util.py](util.py) file that helps create the database link (inherit) and communicates with the database. 
     ```Python
     import sys
     import configparser as cp
     import psycopg2 as pg
 
     ## DB configurations and stuff
-    CONFIG_FILE = 'db.conf'
-    SECTION_NAME = 'floodbarriers.'
-
-    def die(error_msg):
-        """A simple die function"""
-        print(error_msg)
-        sys.exit(1)
-
-    def get_pgconnection_string(filename, section):
-        """Get the PostgreSQL connection string in db.conf"""
-        config = cp.ConfigParser()
-        config.read(filename)
-        if section not in config:
-            die('Ain\'t got no postgres section in configuration file')
-        # Database parameters
-        try: 
-            params = config[section]
-            user = params['user']
-            password = params['password']
-            host = params['host']
-            port = params['port']
-            dbname = params['dbname']
-        except:
-            die('Got no love from config file. Please check parameters name')
-        str = "dbname='%s' user='%s' host='%s' port='%s' password='%s'" % (dbname, user, host, port, password)
-        return str
-
-    def get_connection(filename=CONFIG_FILE, section=SECTION_NAME):
-        """Get connection to database"""
-        try:
-            conn_str = get_pgconnection_string(filename, section)
-            conn = pg.connect(conn_str)
-        except:
-            die('Fail connecting to database')
-        return conn
         ```
 ###### a)	Routing Query and GeoJSON output
-To execute the routing query, we utilized the api.py script to respond to the click event by the user which would be generate the latitude and longitude and send a request that will carry out the SQL query, i.e., the shortest path via Dijkstra algorithm as a rout() function in the database and send the response back as a route.geojson as can be interpreted from [api.py]().
+To execute the routing query, we utilized the api.py script to respond to the click event by the user which would be generate the latitude and longitude and send a request that will carry out the SQL query, i.e., the shortest path via Dijkstra algorithm as a rout() function in the database and send the response back as a route.geojson as can be interpreted from [api.py](api.py).
 ______
 -----
 
 ### 4.0 Front End Development
 To build the front end, the node js framework was first installed to develop the necessary webpage assessor, packages and functionality executed via Javascript and OpenLayer were utilized to put a dynamic map in any web page. The OpenLayer js geospatial library was installed into our system directly with the help of the node package manager (npm) with the following steps discussed below.
-a)	First, we made a new directory for the project <barrier> in the wsl terminal file explorer window. Next, we initialized the project using the npm init command. After that, we installed the OpenLayer js library necessary to have access to the map and other functionalities for the project as recommended using [npm install ol](https://openlayers.org/en/latest/doc/tutorials/bundle.html). 
+a)	First, we made a new directory for the project <barrier> in the wsl terminal file explorer window. Next, we initialized the project using the `npm init` command. After that, we installed the OpenLayer js library necessary to have access to the map and other functionalities for the project as recommended using [npm install ol](https://openlayers.org/en/latest/doc/tutorials/bundle.html). 
 
-b)	We then added the main HTML content to the [html doc](). In the header, we include all the javascript, API, and CSS needed for the application. In the body tag, we created a container for various functionality or state of the web app while running or accommodating events by the user. The core component of OpenLayers is the map (ol/Map). It is rendered to a target container (e.g., a div element on the web page that contains the map). Also, with the button tag, the route response was achieved.
+b)	We then added the main HTML content to the [index.html](index.html). In the header, we include all the javascript, API, and CSS needed for the application. In the body tag, we created a container for various functionality or state of the web app while running or accommodating events by the user. The core component of OpenLayers is the map (ol/Map). It is rendered to a target container (e.g., a div element on the web page that contains the map). Also, with the button tag, the route response was achieved.
 
-c)	Adding the Flood risk Barrier dataset: The flood barrier is also displayed on the web client as a means to prove the efficacy of the route function. This was achieved by using the OpenLayer.style as well as Openlayer.VectorLayer and the OpenLayer.Map to ensure the layers appears as the map load and is improved by the various functionality attached to the modal window.
+c)	Adding the Flood risk Barrier dataset: The [flood barrier](data/flood-barriers.js) is also displayed on the web client as a layer which is added on top of the map container via `Layer:[] attribute`. This was achieved by using the OpenLayer.style as well as Openlayer.VectorLayer and the OpenLayer.Map to ensure the layers appears as the map load and is improved by the various functionality attached to the modal window, see [index.js](index.js).
 
 d)	Select the start and ﬁnal destination: We want to allow the users to draw and move the start and ﬁnal destination points. This is more or less the behavior of google maps and others: the user selects the points via a search box (address search) or by clicking the map. The system queries the server and displays the route on the map. The user can later move the start or ﬁnal point, and the route is updated.
-To do this, we used a tool to draw points (we will use the OpenLayers.Geometry control) and a method to move points (OpenLayers.onclick event). The OpenLayers.Layer. The vector layer serves as the place to draw and manipulate these two actions acting on the ends (source-startPoint and the target-endPoint). A second vector layer was used to illustrate the route returned by the web service. The layers were also symbolized using the OpenLayers.style.
+To do this, we used a tool to draw points (we will use the OpenLayers.Geometry control) and a method to move points (OpenLayers.onclick event). The OpenLayers.Layer. The vector layer serves as the place to draw and manipulate these two actions acting on the ends (source-startPoint and the target-endPoint). A second vector layer was used to illustrate the route returned by the web service. The layers were also symbolized using the OpenLayers.style. Other styles (for the html comntainer and event/actions) were added using the [normalize.css](normalize.css) and [styles.css](styles.css)
 In the initialize function (that’s the class constructor) we set that this control can only draw points `map.on('singleclick', (e) => {switch (clicks % 2)`. The special behavior is implemented in the Geometry function: because we only need the start and ﬁnal points the control deactivates itself when two  points are drawn by counting how many features  has the vector layer.
 The two point are added as layers to the OpenLayers.Map object with `addLayer ()` method once the user cicks on the map.
 
 e)	Routing method selection: The basic workﬂow to get a route from the webserver is: transform our points coordinates from EPSG:3857 to EPSG: 4326; call the web service with the correct arguments (method name and two points coordinates); parse the web service response transform GeoJSON to OpenLayers.Feature.Vector; convert all the coordinates from EPSG:4326 to EPSG:3857, and add the result to a vector layer. 
-The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py]() returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
-In the [javascript file](), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
+The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py](api.py) returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
+In the [index.js](index.js), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
 
 
 
