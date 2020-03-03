@@ -9,30 +9,30 @@ To create the vulnerability map, we overlaid the rainfall map (Annual precipitat
 ###### a)	Annual Precipitation-Rainfall Map
 The following steps were utilized; 
 i.	After importing the rainfall data as well as other data layers into the QGIS working window via the Layer tab.
-![RasterandVector](C:/Users/emeka/Pictures/Images/Layer.PNG)
+![RasterandVector](Images/layer.png)
 >*Fig 1.1 Importing the raster and vector data into the QGIS environment*
  
 From the rainfall raster data obtained in .tiff format, the Composite band was built using the tools via this directory `Grass >> r.Composite >>  Selection of the 12 bands` that make up 2018 rainfall data and creating the `AnnualRainfall2018.shp`.
 ii.	From the AnnualRainfall2018.shp, we then summed the band using the value of precipitation, and then it was reprojected to the WGS 1984 UTM ZONE 31N.
 iii.	Then with the Raster pixel to points, we obtained the point value, which was then interpolated using the kriging method `(SAGS >> Raster Creation tool)` to get the surface.
 iv.	The final Rainfall map was then obtained by Extraction by Mask over the study area `(Extraction >> Extraction >> Clip by Raster by Mask Layer)`.
-![RainfallMap](C:/Users/emeka/Pictures/Images/Layer.PNG)
+![RainfallMap](Images/Rainfall.png)
 >*Fig. 1.2 Rainfall Map*
 
 ###### b) Land Use Land Cover Map
 The following processes were utilized to produce the map.
 As stated in the other document, the Land Use Land Cover map was downloaded already prepared. The only primary spatial processing that was done was the clipping of the raster with the study area and the resampling the raster to the size of the chosen spatial unit of analysis of 92.2445.
-![LULCMap]()
+![LULCMap](Images/LULC.png)
 >*Fig. 1.3 Land Use Land Cover Map*
 
 ###### c)	DEM, Slope, Flow Direction and Flow Accumulation Maps
 In practice, the slope, flow accumulation, and flow direction map are extracted from the elevation map. To achieve the individual indicator map, first, the Fill nodata tool was used to remove the sink from the DEM downloaded. With this, the Elevation map was obtained. For the slope Map, the Slope tool found under the Analysis toolbar located in the Raster Tab was used. Next, the Flow direction and Accumulation Map were created using the tools found in the directory `Toolbox >> Grass >> Raster >> r.flow and Toolbox >> SAGA >> Simulation >>  Flow accumulation tools respectively`.
-![DEMMap]() ![SlopeMap]() ![FDMap]() ![FAMap]()
->*Fig. 1.4 (a) Elevation Map (b) Flow Accumulation Map (c) Flow Direction Map (d) Slope Map*
+![DEMMap](Images/ElevationntRCL.png) ![SlopeMap](Images/slope.png) ![FDMap](Images/FlowDir.png) ![FAMap](Images/FlowAccummulation.png)
+>*Fig. 1.4 (a) Elevation Map (b) Slope Map (c) Flow Direction Map (d) Flow Accumulation Map*
 
 ###### d)	Water Table (Groundwater)
 The map of the water table was obtained from the global aqueduct map downloaded by using the `Clip tool`, `Rasterize tool`, as well as the `Resample tool`.
-![Watertable]()
+![Watertable](Images/WaterTablentRCL.png)
 >*Fig. 1.5 Watertable Map*
 
 The final flood hazard map, as stated, is based on the seven thematic layers, as described and shown in `Fig. 1.2 – Fig. 1.5`. The study area was reclassified into six separate classes (zones). This was obtained using the Reclassify tool in the QGIS software for each of the seven thematic indicators discussed below. The reclassification method was similar for each layer as they involve the same process. The process utilized for each layer involved:
@@ -44,11 +44,11 @@ The final flood hazard map, as stated, is based on the seven thematic layers, as
     FH𝑍𝑜𝑛𝑒 = 〈 𝑆𝐿𝑤𝑆𝐿𝑠 + E𝐿𝑖𝑤E𝐿𝑖𝑠 + FA𝑤FA𝑠 +  𝐿𝑈𝐿𝐶𝑤𝐿𝑈𝐿𝐶𝑠 + FD𝑤FD𝑠 +  AP𝑤AP𝑠  + W𝑇𝑤W𝑇𝑠〉	...   1
 Where FHZone = flood hazard zone, SL = slope, El = Elevation/DEM,  FA = Flow Accumulation, FD = Flow Direction, AP = Annual Precipitation (Rainfall), WT = Water table (groundwater potential), and the subscripts w and s refer to the normalized weight of a factor/indicator (theme) and the standardized weight(individual reclassified output - score) of individual features of the theme, respectively.
 
-![ElevationReclMap]() ![FAReclMap]() ![FDReclMap]() ![LULCReclMap]() ![RainfallReclMap]() ![SlopeReclMap]() ![WaterTableReclMap]()
+![ElevationReclMap](Images/Elevation.png) ![FAReclMap](Images/FlowAccummulationRCL.png) ![FDReclMap](Images/FlowDirRCL.png) ![LULCReclMap](Images/lulcRCL.png) ![RainfallReclMap](Images/RainfallRCL.png) ![SlopeReclMap](Images/slopeRCL.png) ![WaterTableReclMap](Images/WaterTable.png)
 >*Fig. 1.6(a)-(g) Reclassified Map of the Flood Hazard Indicators*
 
 Finally, to achieve the final output, the output of the weighted sum analysis was reclassified via Reclassify by Table tool into six classes, as can be seen in the map shown below.
-![FloodHazardMap]()
+![FloodHazardMap](Images/FloodHazard.png)
 Fig 1.7 Flood Hazard Map
 
 ##### 1.2       Generation of the Flood Vulnerable Indicators
@@ -59,14 +59,14 @@ For the vulnerability to be ascribed to the city, the human component is usually
 
 *	First, the admin data was imported into the QGIS environment. We extracted the Lagos Central district LGAs from the admin3.shp as a new shapefile consisting of just five LG. Next, a new attribute field (column header) was created by right-clicking on the new shapefile with the environment in edit mode and by turning on the Field Calculator.
 *	In the new window, we created three new fields, i.e., *the population field, area_km2 field, and PopDensity field*. In the population field, we manually inputed the population of each LGA as recorded from the website, written earlier into the cell in the attribute table. In the area_km2 field, we computed the polygon area of each of the LGA by selecting the area geom from the field calculator window. The final field, PopDensity, was calculated using the mathematical operator division.
-![FieldCalculator]()
+![FieldCalculator](Images/popdens.PNG)
 >*Fig. 1.8 Field Calculator to create the population density attribute field*
 
 *	Then we obtained the obtained administrative data of the study area (a single feature shapefile) using the Dissolve tools using the name_1 field on the earlier six features.
 *	The newly created dissolve shapefile was then imbued with the PopDensity value of the different LGA by using the `Join attributes by Location Tool` in the `Vector general toolbox` using the *Geometry type => within* and *Join type => Take attributes of the first located feature only (one-to-one)*.
 * The final map was created by using the `Rasterize tool` in `Vector Conversion Toolbox`. Then we ranked the data based on population density, knowing that the higher the population pressure, the higher the vulnerability of such class of people when a flood occurs.
 
-![PopulationDensityMap]() ![PopulationDensReclMap]()
+![PopulationDensityMap](Images/PopDen.png) ![PopulationDensReclMap](Images/PopDenRCL.png)
 >*Fig 1.9 (a)Population Density Map and (b) Population Density Reclassified Map*
 
 ###### b)	Building Density
@@ -77,7 +77,7 @@ The building density was extracted from the LULC map, which had the building lan
 * After computing the fields, we used the `Join attribute by location tool` to merge the BuildingDen field in the building shapefile with the individual LGA attribute field. This output was then combined to form a single layer containing the LGA of interest.
 * Next, the Merged shapefile was then converted to raster using the `Rasterize tool`.
 
-![BuildingDensityMap]() ![BuildingDensReclMap]()
+![BuildingDensityMap](Images/BuildingDen.png)  ![BuildingDensReclMap](Images/BuildDensityRCL.png)
 >*Fig 1.10 (a)Building Density Map (b) Building Density Reclassified Map*
 
 ###### c)	Road Density
@@ -85,11 +85,11 @@ The road map was obtained from the [turbo](https://turbo-overpass.eu). The Road 
 * We created new three new fields in the Individual LGA features which include, the road, area_km2, and the roadDensity fields. These fields were populated and then dissolved into the individual LGA shapefile.
 * The new shapefile is then merged with the Merge tool to create a single layer with the six features. Next, this feature was converted into a raster image using the Rasterize tool. 
   
-![RoadDensityMap]() ![RoadDensReclMap]()
+![RoadDensityMap](Images/RoadDen.png)  ![RoadDensReclMap](Images/RoadDensityRCL.png)
 >*Fig. 1.11 (a)Road Density Map  (b) Road Density Map Reclassified*
 
 ###### d)	Land Use Land Cover Map (LULC)
-The LULC map that was utilized for the flood hazard map was also used again as it is an important criterion to achieve the final risk map as it shows vulnerability like the above criteria. See [LULC above](#b\)-Land-Use-Land-Cover-Map)
+The LULC map that was utilized for the flood hazard map was also used again as it is an important criterion to achieve the final risk map as it shows vulnerability like the above criteria. See <LULC above>
 
 >*NOTE:* All the indicators/factors were resampled to 92.2245493044474 for both the Cell Size X and Y. Also, we made sure all coordinates were checked correctly and projected when needed to the `EPSG:32631  - WGS 84/ UTM Zone 31N` projected system. Finally, the output indicator raster maps, as well as the flood vulnerability map and the flood risk map, were adequately fit to the Lagos Central District administrative boundary using the `clipped raster by mask layer tool`.
 
@@ -98,7 +98,7 @@ The weighted overlay tool was executed using the Raster Calculator query builder
 
 The risk map that was obtained was ranked from class 1- 5, with the highest risk being six and the least risk areas being 1. The result was then Polygonized using the Polygonized tool, and then the dissolve tool was applied to merge all the individual risk classification created as a result of the previous process earlier done, i.e., vectorization. From here, we decided to work with flood risk areas, not less than the class 4 risk.
 
-![FloodRiskMap]() 
+![FloodRiskMap](Images/floodrisk.png) 
 >*Fig. 1.12 Flood Risk Map of the Lagos Central Area
 
 ###### [Back to the top](#route-automation-for-flood-disaster-emergency-response)
@@ -115,29 +115,29 @@ PgRouting adds PostGIS to the routing feature. With pgRouting, road network navi
 To create the database, we connected to the PostgreSQL database server via the pgAdmin tool. By using the pgAdmin application, we interacted with the PostgreSQL database server via an intuitive user interface. The following steps were followed.
 
 * First, launch the pgAdmin application. This application opened on the web browser. The PgAdmin was then used to connect to the server using the proper authentication requirement. Next, we created a new database called testpro.
-    ![testpro_database]() 
+    ![testpro_database](Images/testprodb.png) 
     >*Fig. 2.1 Database creation in PgAdmin 4
 
 * In this database, we ran specific commands to extend the capabilities of the database to carry out the aim of the project.
-    ![Database extension]()
+    ![Database extension](Images/createextension.png)
     >*Fig. 2.2 Extending the capabilities of the database*
 
 * Next, we open the Visual Studio Code (VS) Code to integrate and run the osm2po command-line tool to obtain the road network dataset without any difficulty with all the necessary topological characteristics adequately configured.
 * The osm2po tool utilized was obtained via the [osm2po](http://osm2po.de/), which makes it very easy to import OpenStreetMap (OSM) data into a Postgres/pgRouting database. It builds the routing network topology automatically and creates tables for feature types and road classes with no network size limitation. The OSM data that is extracted for the osm2po is obtained from [geofabrik](http://download.geofabrik.de/africa/nigeria.html).
 * To make the osm2po work properly, the java development kit, as well as the java run environment, was installed.
 * The osm2po was configured by editing the database connection in the configuration file appropriately to ensure that the converter parses OSM's XML-Data, makes it a routable data and drops it properly in the right database.
-    ![osm2po]()
+    ![osm2po](Images/osm2po.PNG)
     >*Fig. 2.3 Configuring the osm2po tool to sync with the testpro db and to obtain the correct road network for the study area.*
 
 * The db.ini file and the load-into-db.sh were configured, and then the load-into-db.sh and that of the preprocess-osm-roads.sh were executed in the Window subsystem for Linux (wsl) terminal as seen in the image below.
-    ![CommandLine]()
+    ![CommandLine](Images/bash_load-into-db.PNG)
     >*Fig. 2.4 WSL Terminal command line to import OSM data and build routing network topology*
 * The result of this ng_2po_4pgr table was a complete road network dataset of Nigeria with the appropriate configuration acquired, i.e., pgr_nodeNetwork and the pgr_createTopology already configured.
 * With this created, we then used the QGIS DB manager to load the floodbarrier, studyARea, and StudyACM features into the testpro database.
-    ![DatabaseConn]()
+    ![DatabaseConn](Images/dbconn.png)
     >*Fig. 2.5 Connection to the database via QGIS*
 
-    ![DBManager]()
+    ![DBManager](Images/loadinto.png)
     >*Fig. 2.6 Loading the necessary database into Postgres/PostGIS using the DB manager*
 * Due to the large size of data from the osm, we took the advice of various materials we sourced to add an index to the source and target column using the code below.
     ``` SQL
@@ -202,10 +202,10 @@ We used Python Script to make the routing query and send the result back to the 
 
 We used the python template and then place this ﬁle in a directory C:\xampp\cgi-bin, which is accessible by cgi-bin technology. A CGI-bin is an in-house folder for communicating with a web browser to provide a network or website feature. In the context of web development, Common Gateway Interface (CGI) provides an interface for the application of web server executables. In many instances, it means that you take an HTTP client and pass it on to an app to return a dynamically created HTML page to a browser.
 
-While almost any program that runs on a web server (in our case node js) can be used as a CGI script. CGI is a method for the use of Web design scripts. The CGI-bin in the project is referenced in the URL and serves as a REST endpoint and Web Service that holds the python web service/API built [api.py](../api.py). The operations and parameters are passed through the URL (unclean URL) to the server. Then, the server performs the operations (processing) and sends the results back to the client. The cgi-bin defines a way for the web server to interact with external content-generating programs. In our case, it defines the abstract parameters, known as meta-variables, which describe a client's request. With the  [api.py](../api.py), it specifies a platform-independent interface between the script and the HTTP server. Hence, CGI script handles the application issues, such as data access and document processing.
+While almost any program that runs on a web server (in our case node js) can be used as a CGI script. CGI is a method for the use of Web design scripts. The CGI-bin in the project is referenced in the URL and serves as a REST endpoint and Web Service that holds the python web service/API built [api.py](cgi-bin/api.py). The operations and parameters are passed through the URL (unclean URL) to the server. Then, the server performs the operations (processing) and sends the results back to the client. The cgi-bin defines a way for the web server to interact with external content-generating programs. In our case, it defines the abstract parameters, known as meta-variables, which describe a client's request. With the  [api.py](cgi-bin/api.py), it specifies a platform-independent interface between the script and the HTTP server. Hence, CGI script handles the application issues, such as data access and document processing.
 
 
-* First, a configuration [db.conf](../db.conf) file was created to store the testpro database authentication access value created in the PostgreSQL database management system, as shown below.
+* First, a configuration [db.conf](cgi-bin/db.conf) file was created to store the testpro database authentication access value created in the PostgreSQL database management system, as shown below.
 >[floodbarriers]
     user = Postgres
     password = iz******
@@ -213,7 +213,7 @@ While almost any program that runs on a web server (in our case node js) can be 
     host = localhost
     port = 5432
 
-* Next, we created the [util.py](../util.py) file that helps create the database link (inherit) and communicates with the database. 
+* Next, we created the [util.py](cgi-bin/util.py) file that helps create the database link (inherit) and communicates with the database. 
     ```Python
     import sys
     import configparser as cp
@@ -222,7 +222,7 @@ While almost any program that runs on a web server (in our case node js) can be 
     ## DB configurations and stuff
         ```
 ###### a)	Routing Query and GeoJSON output
-To execute the routing query, we utilized the api.py script to respond to the click event by the user which would be generate the latitude and longitude and send a request that will carry out the SQL query, i.e., the shortest path via Dijkstra algorithm as a rout() function in the database and send the response back as a route.geojson as can be interpreted from [api.py](../api.py).
+To execute the routing query, we utilized the api.py script to respond to the click event by the user which would be generate the latitude and longitude and send a request that will carry out the SQL query, i.e., the shortest path via Dijkstra algorithm as a rout() function in the database and send the response back as a route.geojson as can be interpreted from [api.py](cgi-bin/api.py).
 When a program runs through the web server as a CGI program, it most times does not have the same PATH. Any programs that one invoke in the CGI program will need to be specified by a full path, so that the shell can find them when it attempts to execute the CGI program. And this is what the first line does, it tells Apache that this program can be executed by feeding the file to the interpreter found at the location `#!C:/python3/python.exe`.
 
 [Back to the top](#route-automation-for-flood-disaster-emergency-response)
@@ -231,11 +231,12 @@ ______
 
 ### 4.0 Front End Development
 To build the front end, the node js framework was first installed to develop the necessary webpage assessor, packages and functionality executed via Javascript and OpenLayer were utilized to put a dynamic map in any web page. The OpenLayer js geospatial library was installed into our system directly with the help of the node package manager (npm) with the following steps discussed below.
+
 a)	First, we made a new directory for the project <barrier> in the wsl terminal file explorer window. Next, we initialized the project using the `npm init` command. After that, we installed the OpenLayer js library necessary to have access to the map and other functionalities for the project as recommended using [npm install ol](https://openlayers.org/en/latest/doc/tutorials/bundle.html). 
 
 b)	We then added the main HTML content to the [index.html](../index.html). In the header, we include all the javascript, API, and CSS needed for the application. In the body tag, we created a container for various functionality or state of the web app while running or accommodating events by the user. The core component of OpenLayers is the map (ol/Map). It is rendered to a target container (e.g., a div element on the web page that contains the map). Also, with the button tag, the route response was achieved.
 
-c)	Adding the Flood risk Barrier dataset: The [flood barrier](data/flood-barriers.js) is also displayed on the web client as a layer which is added on top of the map container via `Layer:[] attribute`. This was achieved by using the OpenLayer.style as well as Openlayer.VectorLayer and the OpenLayer.Map to ensure the layers appears as the map load and is improved by the various functionality attached to the modal window, see [index.js](../index.js).
+c)	Adding the Flood risk Barrier dataset: The [flood barrier](../data/flood-barriers.js) is also displayed on the web client as a layer which is added on top of the map container via `Layer:[] attribute`. This was achieved by using the OpenLayer.style as well as Openlayer.VectorLayer and the OpenLayer.Map to ensure the layers appears as the map load and is improved by the various functionality attached to the modal window, see [index.js](../index.js).
 
 d)	Select the start and ﬁnal destination: We want to allow the users to draw and move the start and ﬁnal destination points. This is more or less the behavior of google maps and others: the user selects the points via a search box (address search) or by clicking the map. The system queries the server and displays the route on the map. The user can later move the start or ﬁnal point, and the route is updated.
 
@@ -246,7 +247,7 @@ The two point are added as layers to the OpenLayers.Map object with `addLayer ()
 
 e)	Routing method selection: The basic workﬂow to get a route from the webserver is: transform our points coordinates from EPSG:3857 to EPSG: 4326; call the web service with the correct arguments (method name and two points coordinates); parse the web service response transform GeoJSON to OpenLayers.Feature.Vector; convert all the coordinates from EPSG:4326 to EPSG:3857, and add the result to a vector layer. 
 
-The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py](../api.py) returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
+The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py](cgi-bin/api.py) returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
 In the [index.js](../index.js), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
 
 [Back to the top](#route-automation-for-flood-disaster-emergency-response)
