@@ -50,7 +50,7 @@ For detailed information on what can still be done, check the [conclusion](docs/
 __________
 
 ## Acknowledgement
-We want to express our gratitude to our teacher Dr. Joel Dinis Baptista Ferreira da Silva for his excellent guidance and sympathetic support throughout this research. His valuable advice was the most significant help for us during the one month we spent on doing this research. Also, we would like to appreciate his detailed and instructive comments on this research report very much.
+We want to express our gratitude to our teacher [Dr. Joel Dinis Baptista Ferreira da Silva](jsilva@novaims.unl.pt) for his excellent guidance and sympathetic support throughout this research. His valuable advice was the most significant help for us during the one month we spent on doing this research. Also, we would like to appreciate his detailed and instructive comments on this research report very much.
 
 [Back to the top](#table-of-contents)
 ___________
