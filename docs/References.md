@@ -1,4 +1,4 @@
-#References
+# References
 ______
 
 Alexander, D., (1997). The Study of Natural Disasters, 1977–97: Some Reflections on a Changing Field of Knowledge. Journal of Disasters, 21(4), 284–304.
