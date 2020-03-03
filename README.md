@@ -31,7 +31,8 @@ ________
 - Visual STudio Code
 - Markdown
 - Github
-See [Methodology](docs/Methodology.md) and [Discussion](docs/Result_Discussion.md) for more on this.
+
+>See [Methodology](docs/Methodology.md) and [Discussion](docs/Result_Discussion.md) for more on this.
 
 [Back to the top](#table-of-contents)
 __________
