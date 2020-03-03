@@ -33,6 +33,7 @@ While almost any program that runs on a web server (in our case node js) can be 
 When a program runs through the web server as a CGI program, it most times does not have the same PATH. Any programs that one invoke in the CGI program will need to be specified by a full path, so that the shell can find them when it attempts to execute the CGI program. And this is what the first line does, it tells Apache that this program can be executed by feeding the file to the interpreter found at the location `#!C:/python3/python.exe`.
 
 [Back to the top](#server-side-script-with-python)
+
 *[Go Back](Tutorial.md)*
 ______
 -----
