@@ -19,6 +19,9 @@ e)	Routing method selection: The basic workﬂow to get a route from the webserv
 The ﬁrst: our map uses the EPSG:3857 projection (because we use an OSM layer), but the web service expects coordinates in EPSG:4326: we re-projected the data before sending them. This was done by simply using the OpenLayers.Projection. The routing web service in [api.py](cgi-bin/api.py) returns a GeoJSON FeatureCollection object. A FeatureCollection is simply an array of features: one feature for each route segment.
 In the [index.js](../index.js), we set all the variable to collect the values, i.e., we needed to call the web service when the two points are drawn to compute the routing method; the format is an array of list where a user input is captured as, `let user = { startPoint: [], endPoint: [] };`. The URL captures the information and sends it to the server (the python script) and the value displayed at the client browser. 
 
+![Webroutingmap](Images/final_web_prototype.png)
+>*Fig 4.1 Example of the route between two selected points avoiding the flood risk areas.*
+
 [Back to the top](#front-end-development)
 
 [Go Back](Tutorial.md)
