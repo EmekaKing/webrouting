@@ -62,6 +62,6 @@ See [References](docs/References.md)
 __________
 
 ## Authors Info
-*Chukwuemeka Fortune Igwe (M20190646@novaims.unl.pt)*
+>*Chukwuemeka Fortune Igwe (M20190646@novaims.unl.pt)*
 *Edwige Mukundane (M20190649@novaims.unl.pt)*
 *Feranmi Jeremiah Olowe (M20191141@novaims.unl.pt)*
